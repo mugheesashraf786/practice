@@ -4,9 +4,11 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { AuthGuard } from './Guards/auth.guard';
+import { PreventUnsavedGuard } from './Guards/prevent-unsaved.guard';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 
@@ -17,10 +19,11 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate:[AuthGuard],
     children:[
-      {path: 'member', component: MemberListComponent, canActivate:[AuthGuard]},
+      {path: 'member', component: MemberListComponent},
       {path: 'member/:username', component: MemberDetailComponent},
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
+      {path: 'members/edit', component: MemberEditComponent, canDeactivate:[PreventUnsavedGuard]},
   
 
     ]
